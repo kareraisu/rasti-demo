@@ -1,0 +1,34 @@
+{
+  "engines": {
+    "node": "6.9.0"
+  },
+  "name": "rasti-demo",
+  "version": "1.0.0",
+  "description": "a simple webapp prototype made with rasti.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kareraisu/rasti-demo.git"
+  },
+  "keywords": [
+    "demo",
+    "webapp",
+    "prototype",
+    "rasti.js"
+  ],
+  "author": "kareraisu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kareraisu/rasti-demo/issues"
+  },
+  "homepage": "https://github.com/kareraisu/rasti-demo#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+  }
+}
