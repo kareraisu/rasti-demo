@@ -3,7 +3,7 @@
 .card {
     height: 100px;
     padding: 0;
-    margin-bottom: 0;
+    margin-bottom: 10px;
     cursor: pointer;
 }
 .card img {
@@ -62,11 +62,11 @@
 /*
 
 [header]:before, [btn] {
-    text-transform: capitalize !important;
+    text-transform: capitalize;
 }
 
 [label]:before {
-    text-transform: uppercase !important;
+    text-transform: uppercase;
 }
 
 */

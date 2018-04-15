@@ -80,11 +80,11 @@ app.extend({
 
 	},
 
-	utils : {
+	methods : {
 
 	    applyTheme : el => {
-	        var theme = app.get('field=theme').val(),
-	            map = app.get('data=themeMaps').val()
+	        var theme = $('[prop=theme]').val(),
+	            map = $('[data=themeMaps]').val()
 	        if (theme && map) app.setTheme(theme +' '+ map)
 	    },
 
