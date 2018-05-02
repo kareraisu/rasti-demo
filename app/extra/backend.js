@@ -6,6 +6,7 @@ app.backend = {
         return app.backend.people.filter( person => {
             matches = true
             Object.keys(criteria).forEach( prop => {
+                if (!person[prop]) return
                 query = criteria[prop]
                 if ( !query || query == 'Todas' ) return
                 else if ( is.string(query) ) {

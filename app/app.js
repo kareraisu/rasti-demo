@@ -25,13 +25,7 @@ pages : {
         },
 
         out : params => {
-            
-            if (params) {
-                $('[nav=login]').css({
-                    'background-image' : `url(img/${ params.user }.jpg)`,
-                    'background-size' : 'contain',
-                })
-            }
+
         },
     },
 
@@ -41,7 +35,7 @@ pages : {
         url : 'the-main-page',
 
         init : _ => {
-            $('[panel=results]').on('click', '.card', e => {
+            $('[template=results]').on('click', '.card', e => {
                 e.currentTarget.classList.toggle('modal')
             })
         }
@@ -68,26 +62,26 @@ data : {
 
 methods : {
 
-    getPeople : (reqdata, render) => {
-
-        $('[name=reqdata]').val( JSON.stringify(reqdata, null, 2) )
-
+    login : (reqdata, cb) => {   
+        $('.error').hide()
         // ajax simulation
-        setTimeout(function() {
-            var people = app.backend.getPeople(reqdata)
+        setTimeout(_ => {
+            reqdata.pass == '12341234'
+                ? app.navTo('main', {user : app.props.user})
+                : $('.error').show()
+            cb()
+        }, 1000)
+    },
+
+    getPeople : (reqdata, render) => {
+        app.props.filters.reqdata = JSON.stringify(reqdata, null, 2)
+        // ajax simulation
+        setTimeout(_ => {
+            const people = app.backend.getPeople(reqdata)
             $('[tab-label="1"]').click()
             render(people)
         }, 1000)
-
     },
-
-
-    login : e => {
-        if ($('[prop=pass]').val() == '1234') {
-            app.navTo('main', {user: $('[prop=user]').val()})
-        }
-    },
-
 
     imgFallback : img => {
         img.src = 'img/user.png'

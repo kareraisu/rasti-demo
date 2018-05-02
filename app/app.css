@@ -27,6 +27,7 @@
 .card.modal {
     justify-content: center;
     height: 500px;
+    min-width: 300px !important; 
     padding: 20px;
 }
 .card.modal img {
@@ -61,12 +62,16 @@
 /* rasti styles overrides (try uncommenting this!) */
 /*
 
-[header]:before, [btn] {
-    text-transform: capitalize;
+[header]:before, button {
+    text-transform: capitalize !important;
 }
 
 [label]:before {
-    text-transform: uppercase;
+    text-transform: uppercase !important;
+}
+
+.nodata {
+    color: #bbb;
 }
 
 */
