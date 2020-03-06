@@ -4,7 +4,7 @@ const express = require('express')
 
 const server = express()
 
-server.use(express.static(__dirname + '/app'))
+server.use(express.static(__dirname + '/demos'))
 
 const REST_PORT = (process.env.PORT || 4000)
 

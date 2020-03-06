@@ -4,7 +4,7 @@
   },
   "name": "rasti-demo",
   "version": "1.0.0",
-  "description": "a simple webapp prototype made with rasti.js",
+  "description": "simple webapp demos made with rasti.js",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
