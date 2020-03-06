@@ -1,0 +1,130 @@
+nav {
+    position: fixed;
+    top: 30px;
+    height: 50px;
+    padding-left: 120px;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    border-top: 1px solid rgba(0,0,0,0.2);
+}
+[name=logo] {
+    position: absolute;
+    top: -30px;
+    left: 0;
+}
+[name=logo], [menu=logos] > div {
+    height: 120px;
+    width: 120px;
+    padding: 5px;
+    background-size: cover;
+}
+[menu=logos] {
+    position: fixed;
+    top: 0;
+    background-color: transparent;
+    box-shadow: 0 0 0 0;
+}
+
+[page] {
+    text-align: center;
+    padding-top: 70px;
+}
+[page=landing] {
+    padding-top: 8vh;
+    background: linear-gradient(to bottom right, #38ef7d, #11998e);
+}
+
+[panel] {
+    height: 100vh;
+}
+[panel][header] {
+    padding-top: 18vh;
+}
+[panel][header]:before {
+    height: 12vh;
+    line-height: 10vh;
+    font-size: 4em;
+    text-transform: capitalize;
+}
+
+
+[name=links] {
+    justify-content: space-around;
+}
+[name=links] > div {
+    height: 15vw;
+    width: 15vw;
+    min-height: 150px;
+    min-width: 150px;
+    margin-bottom: 15px;
+}
+
+#locales .toggle {
+    height: 34vh;
+    padding: 0;
+}
+#locales .toggle .info {
+    padding: 10px;
+    font-size: 1.4em;
+}
+#locales .toggle .info em {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+#comidas .list {
+    height: auto;
+    min-width: 250px;
+    font-size: large;
+    cursor: pointer;
+}
+
+.logo {
+    height: 40vh;
+    margin-bottom: -15vh;
+}
+.slogan {
+    color: #000;
+    font-size: 1.8em;
+    margin-top: -8vw;
+    margin-left: 22vw;
+}
+
+.card, .card:before {
+    position: relative;
+    height: 22vw;
+    width: 15vw;
+    min-height: 200px;
+    min-width: 150px;
+    margin-right: 1vw;
+    margin-bottom: 1vw;
+    padding: 0;
+}
+.card {
+    overflow: hidden;
+}
+.card:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.8) 100%);
+}
+.card img {
+    height: 100%;
+}
+.card .info {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    color: #eee;
+}
+.card .nombre {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+.card .precio {
+    font-size: 1.4em;
+    font-style: italic;
+}

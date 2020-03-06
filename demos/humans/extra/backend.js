@@ -26,6 +26,10 @@ app.backend = {
         })
     },
 
+    checkUser : user => {
+        return app.backend.people.map(p => p.id).includes(user)
+    },
+
     people : [{
         name     : 'Agustín Cuesta',
         id       : 'acuesta',

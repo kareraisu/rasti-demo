@@ -66,8 +66,8 @@ methods : {
         $('.error').hide()
         // ajax simulation
         setTimeout(_ => {
-            reqdata.pass == '12341234'
-                ? app.navTo('main', {user : app.props.user})
+            app.backend.checkUser(reqdata.user) && reqdata.pass == '12341234'
+                ? app.navTo('main')
                 : $('.error').show()
             cb()
         }, 1000)
