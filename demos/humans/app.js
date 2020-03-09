@@ -58,15 +58,16 @@ data : {
         }
     },
 
-    features : 'navigation, ajax, templates, paging, actions, themes, i18n, tabs, modals, blocks, field dependency, field validation, responsive',
+    features : `navigation, ajax (simulated), props, templates (triggered and prop-bound),
+        paging, actions (toggle), themes, i18n, blocks and other data-driven elements (lists and tables),
+        element dependency, field validation, tabs modals and menus, responsive layout, fx`,
 
     stats : `File,LOC,KBs
-            index.html,~200,<1
-            app.js,~100,<1
-            app.css,~80,<1
-            config.js,~120,<1
-            TOTAL,~500,<4
-            `
+            index.html,~200,5.5
+            app.js,~100,3.0
+            app.css,~80,1.2
+            config.js,~120,3.5
+            Total,~500,13.2`
 
 },
 
