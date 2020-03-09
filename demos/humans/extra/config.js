@@ -55,8 +55,15 @@ app.extend({
 			config   : 'config',
 			lang     : 'language',
 			theme    : 'theme',
+			variant  : 'variant',
 			about    : 'about',
+			info	 : 'This is a simple demo app to show the main features of rasti.js. Check out the source code for tips, or go to the docs for all the details.',
 			features : 'features',
+			some_feats : 'These are some of the feats that this demo app uses',
+			numbers  : 'numbers',
+			less_is_more : 'Here are some numbers that attest the power of rasti.js. Because less time coding is more time... doing sth else, idk :P',
+			dont_forget : "Don't forget to ",
+			things   : 'give it a star in github, tell your geek friends about rasti.js, get some air, do the laundry'
 		},
 
 		es : {
@@ -78,8 +85,15 @@ app.extend({
 			config   : 'configuración',
 			lang     : 'idioma',
 			theme    : 'tema',
+			variant  : 'variante',
 			about    : 'acerca de',
+			info	 : 'Esta es una simple app para mostrar las principales características de rasti.js. Mira el cóodigo fuente para pistas, o ve a la documentación para todos los detalles.',
 			features : 'características',
+			some_feats : 'Estas son algunas de las características que usa esta app:',
+			numbers  : 'números',
+			less_is_more : 'Algunos números que atestigüan el poder de rasti.js (no me crees? mira el código fuente!). Porque menos tiempo codeando es más tiempo... haciendo otra cosa, qué se yo :P',
+			dont_forget : 'No olvides ',
+			things   : 'darle like en github, contarle a tus amigos geeks sobre rasti.js, tomar sol, lavar la ropa'
 		},
 
 	},
@@ -87,8 +101,7 @@ app.extend({
 	methods : {
 
 	    applyTheme : el => {
-	        var theme = $('[prop=theme]').val(),
-	            map = $('[data=themeMaps]').val()
+			const {theme, map} = app.props
 	        if (theme && map) app.setTheme(theme +' '+ map)
 	    },
 

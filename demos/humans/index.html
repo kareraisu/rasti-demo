@@ -4,21 +4,8 @@
     <title>rasti.js demo</title>
     <meta charset=utf-8>
     <meta name=viewport content="width=device-width, initial-scale=1 maximum-scale=1">
-    <link rel=manifest href=manifest.json>
-
     <link rel=stylesheet href=app.css>
-    
-    <!-- 
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-                .register('./service-worker.js')
-                .then(function() { console.log('Service Worker Registered') })
-        }
-        else alert('Sorry, offline functionality is not available')
-    </script>
-    -->
-
+    <link rel=manifest href=manifest.json>
 </head>
 
 <body rasti=app hidden>
@@ -32,7 +19,7 @@ the [rasti=X] declaration does 3 things:
     <nav bg=mid>
         <div nav=main text=main></div>
         <div nav=about text=about></div>
-        <div template bind=user class="right"
+        <div template prop=user class="right"
             toggle="menu=user">
             <label class="hide-phone">${ props.user }</label>
             <img src="img/${ app.props.user }.jpg" class="round" style="height: 50px; width: 50px; margin-left: 10px;" />
@@ -42,7 +29,7 @@ the [rasti=X] declaration does 3 things:
     
     <div menu=user bg=mid class="right" style="width: 200px;">
         <div text=config icon=gear toggle="prop=config" ></div>
-        <div text=logout icon=exit nav=login ></div>
+        <div text=logout icon=exit on-click=logout ></div>
     </div>
 
 
@@ -65,10 +52,18 @@ the [rasti=X] declaration does 3 things:
 
     <div page=about header
         class="row hh-phone">
-        <div panel class="pad-desktop">
-            <h1>rasti.js demo app</h1>
+        <div class="col-5 pad">
             <div section>
-                <ul data=features label=features bg=lighten ></ul>
+                <h2>rasti.js demo app</h2>
+                <p text=info></p>
+            </div>
+            <div foldable section=features header class="folded">
+                <p text=some_feats></p>
+                <ul data=features></ul>
+            </div>
+            <div foldable section=numbers header class="folded">
+                <p text=less_is_more></p>
+                <table data=stats></table>
             </div>
         </div>
     </div>
@@ -107,7 +102,7 @@ the [rasti=X] declaration does 3 things:
                 submit=login
                 validate></button>
 
-            <div class="error" text=error_login style="display: none; color: #bbb"></div>
+            <div class="msg-error" text=error_login></div>
 
         </div>
 
@@ -123,13 +118,13 @@ the [rasti=X] declaration does 3 things:
 
             <div section class="pad">
                 <input prop=name label>
-                <select prop=area label data></select>
+                <select data prop=area label></select>
                 <div block=multi filter
-                    prop=skills label
+                    data prop=skills label
                     bind=area></div>
             </div>
 
-            <div foldable section=reqdata header>
+            <div foldable section=reqdata header class="folded">
                 <textarea private transient prop=reqdata disabled
                     style=height:100px></textarea>
             </div>
@@ -172,9 +167,13 @@ the [rasti=X] declaration does 3 things:
     </div>
 
 
-    <script src=../../../rasti.js/dist/rasti+zepto.js></script>
-    <!-- <script src=https://rawgit.com/kareraisu/rasti.js/dev/dist/rasti%2Bzepto.min.js></script> -->
+    <div template prop=toast_msg bg=light fx=toast>
+        <p icon=${props.toast_icon}>${ props.toast_msg }!</p>
+    </div>
 
+
+    <script src=/dist/rasti+zepto.min.js></script>
+    
     <script src=extra/backend.js></script>
     <script src=extra/config.js></script>
     <script src=app.js></script>
