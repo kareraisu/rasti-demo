@@ -9,4 +9,4 @@
     document.querySelector('#ninja-src').remove()
 })(document.querySelector('head'),
     location.hostname == 'localhost' ? '/dist/rasti.js'
-    : 'https://raw.githubusercontent.com/kareraisu/rasti.js/master/dist/rasti.min.js')
+    : 'https://unpkg.com/@kareraisu/rasti')
