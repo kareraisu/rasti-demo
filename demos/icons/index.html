@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rasti icons</title>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width, initial-scale=1 maximum-scale=1">
+    <script id=ninja-src src="../ninja-src.js"></script>
+
+    <style>
+        :root {
+            --icon_font: inherit;
+            --icon_color: #fff4;
+            --bg_color: #222;
+        }
+        body {
+            color: #222 !important;
+        }
+        [icon]:before {
+            font-family: var(--icon_font);
+        }
+        .grid [icon]:before {
+            background-color: var(--icon_color);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-auto-rows: max-content;
+            justify-items: center;
+        }
+        .grid > div {
+            margin: 1vw;
+            font-size: 1rem;
+            text-align: center;
+        }
+        .orb {
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .range-wrap {
+            display: inline-block;
+            height: 160px;
+            width: 20px;
+        }
+        .vert {
+            width: 160px;
+            transform: rotate(-90deg);
+            transform-origin: 80px 80px;
+        }
+        [icon=contrast]::before {
+            font-size: 1.7rem !important;
+            line-height: 1.2 !important;
+        }
+        [icon=contrast].active {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body hidden rasti=icons_demo src=app.js>
+
+<div page=main class="fullh row">
+
+    <nav bg=light class="hidden show-phone">
+        <div icon="bars" toggle="sidemenu" style="max-width: 50px;"></div>
+        <div>rasti icons</div>
+    </nav>
+
+    <div sidemenu panel class="col-4">
+
+        <input prop=search
+            on-keydown=search
+            placeholder="write any icon names" />
+
+        <div foldable=palette bg=light style="max-height: 300px;">
+            <div class="rigid row" >
+
+                <div template=stats class="col-8 rigid row" style="padding: 10px 10px 0 10px">
+                    <div class="col-4">${ props.sizeName }</div>
+                    <div class="col-8">${ props.colorName }</div>
+                </div>
+
+                <div class="col-4 fcentery small_">
+                    <div icon=palette on-click=toggleMode></div>
+                    <div icon=contrast on-click=toggleShade></div>
+                </div>
+                
+            </div>
+
+            <div class="nowrap rigid row" hide=sidemenu style="padding: 10px;">
+                
+                <div class="col-2 small_">
+                    <div icon=add on-click=incSize render=stats></div>
+                    <div class="range-wrap">
+                        <input prop=size class="vert"
+                            type=range min=0 max=3 step=1 value=2
+                            on-change=changeSize render=stats>
+                    </div>
+                    <div icon=remove on-click=decSize render=stats></div>
+                </div>
+                
+                <div template data=palette class="col-10 row">
+                    <div on-click=changeColor value=${el} class="orb"
+                        style="background-color: ${el};" ></div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div foldable=categories template data=categories
+            fx=stack bg=light
+            class="scrolly list"
+            style="max-height: 300px; margin-top: 10px;">
+
+            <div on-click=selectCategory value=${el}>${el} ( ${el == 'all'
+                ? Object.values(data.icons).flat().length
+                : data.icons[el].length} )</div>
+
+        </div>
+    </div>
+
+    <div class="col-8 p0-phone hh-phone" section header="rasti icons"
+        style="background-color: var(--bg_color); height: 95vh;">
+
+        <div template=icons fx=stamp
+            class="scrolly grid round_">
+
+            <div icon=${el} class="col">${el}</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
