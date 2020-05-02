@@ -1,4 +1,4 @@
-app.extend({
+humans.config({
 
 	themes : {
 
@@ -15,7 +15,7 @@ app.extend({
 	    green : {
 	        font : 'normal 14px fantasy',
 	        palette : {
-	            light  : '#E0DEDE',
+	            light  : '#81ABAA',
 	            mid    : '#436F6E',
 	            dark   : '#1D3638',
 	            detail : '#DFD665',
@@ -40,10 +40,11 @@ app.extend({
 			welcome  : 'rasti.js demo app',
 			username : 'user name',
 			pass     : 'password',
-			error_login : 'user or password incorrect',
+			error_login : 'wrong user or password, please try again',
 			login    : 'log in',
 			logout   : 'log out',
 			main     : 'main',
+			main_header : 'people search',
 			filters  : 'filters',
 			personal : 'personal',
 			name     : 'name',
@@ -55,8 +56,9 @@ app.extend({
 			config   : 'config',
 			lang     : 'language',
 			theme    : 'theme',
-			variant  : 'variant',
+			dark  	 : 'dark',
 			about    : 'about',
+			about_header : 'about this app',
 			info	 : `This is a simple demo app to show the main features of rasti.js.
 				Check out the source code for tips, or go to the docs for all the details.`,
 			features : 'features',
@@ -74,10 +76,11 @@ app.extend({
 			welcome  : 'demo de rasti.js',
 			username : 'usuario',
 			pass     : 'contraseña',
-			error_login : 'usuario o contraseña incorrectos',
+			error_login : 'usuario o contraseña incorrectos, por favor intenta nuevamente',
 			login    : 'acceder',
 			logout   : 'salir',
 			main     : 'principal',
+			main_header : 'busqueda de personas',
 			filters  : 'filtros',
 			personal : 'personal',
 			name     : 'nombre',
@@ -89,8 +92,9 @@ app.extend({
 			config   : 'configuración',
 			lang     : 'idioma',
 			theme    : 'tema',
-			variant  : 'variante',
+			dark  	 : 'oscuro',
 			about    : 'acerca de',
+			about_header : 'acerca de esta app',
 			info	 : `Esta es una simple app para mostrar las principales características de rasti.js.
 				Mira el cóodigo fuente para pistas, o ve a la documentación para todos los detalles.`,
 			features : 'características',
@@ -108,20 +112,21 @@ app.extend({
 
 	methods : {
 
-	    applyTheme : el => {
-			const {theme, variant} = app.props.config
-	        if (theme && variant) app.setTheme(theme +' '+ variant)
+	    applyTheme(e) {
+			const {theme, dark} = this.props.config
+			const variant = dark ? 'dark' : 'light'
+	        if (theme) this.setTheme(theme +' '+ variant)
 	    },
 
 	},
 })
 
 
-app.extend({
+humans.config({
 	data : {
-		lang : Object.keys(app.langs),
-		theme : Object.keys(app.themes),
-		themeMaps : Object.keys(app.themeMaps),
+		langs : Object.keys(humans.langs),
+		themes : Object.keys(humans.themes),
+		themeMaps : Object.keys(humans.themeMaps),
 	},
 })
 

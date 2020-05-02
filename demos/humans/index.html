@@ -4,11 +4,13 @@
     <title>rasti.js demo</title>
     <meta charset=utf-8>
     <meta name=viewport content="width=device-width, initial-scale=1 maximum-scale=1">
+    <script id=ninja-src src="../ninja-src.js"></script>
+
     <link rel=stylesheet href=app.css>
     <link rel=manifest href=manifest.json>
 </head>
 
-<body rasti=app hidden>
+<body rasti=humans src="extra/backend.js, extra/config.js, app.js" hidden>
 <!-- 
 the [rasti=X] declaration does 3 things:
     1. creates a rasti instance named 'X'
@@ -18,11 +20,10 @@ the [rasti=X] declaration does 3 things:
 
     <nav bg=mid>
         <div nav=main text=main></div>
-        <div nav=about text=about></div>
         <div template prop=user class="right"
             toggle="menu=user">
             <label class="hide-phone">${ props.user }</label>
-            <img src="img/${ app.props.user }.jpg" class="round" style="height: 50px; width: 50px; margin-left: 10px;" />
+            <img src="img/${ props.user }.jpg" class="round" style="height: 50px; width: 50px; margin-left: 10px;" />
         </div>
     </nav>
 
@@ -35,37 +36,36 @@ the [rasti=X] declaration does 3 things:
 
     <div menu prop=config bg=mid
         class="right inline-label_" style="width: 250px;">           
-        <div block=buttons
+        <div block=buttons data=langs
             prop=lang label
-            onchange=app.setLang(this.value)></div>
+            onchange=humans.setLang(this.value)></div>
 
-        <div block=radios
+        <div block=radios data=themes
             prop=theme label
             on-change=applyTheme></div>
 
-        <div block=buttons
-            prop=variant label
-            data=themeMaps
-            on-change=applyTheme></div>
+        <input type="checkbox" class="toggle"
+            prop=dark label
+            on-change=applyTheme>
+
+        <div nav=about text=about></div>
     </div>
 
 
-    <div page=about header
-        class="row hh-phone">
-        <div class="col-5 pad">
-            <div section>
-                <h2>rasti.js demo app</h2>
-                <p text=info></p>
-            </div>
-            <div foldable section=features header class="folded">
-                <p text=some_feats></p>
-                <ul data=features></ul>
-            </div>
-            <div foldable section=numbers header class="folded">
-                <p text=less_is_more></p>
-                <table data=stats></table>
-                <p text=wondering></p>
-            </div>
+    <div page=about header=about_header
+        class="row columns-3 fcenterx hide-nav hh-phone pad-s-phone">
+        <div section>
+            <h2>rasti.js demo app</h2>
+            <p text=info></p>
+        </div>
+        <div foldable=features section>
+            <p text=some_feats></p>
+            <ul data=features separator=|></ul>
+        </div>
+        <div foldable=numbers section>
+            <p text=less_is_more></p>
+            <table data=stats separator=|></table>
+            <p text=wondering></p>
         </div>
     </div>
 
@@ -103,21 +103,19 @@ the [rasti=X] declaration does 3 things:
                 submit=login
                 validate></button>
 
-            <div class="msg-error" text=error_login></div>
-
         </div>
 
     </div>
 
 
-    <div page=main header
+    <div page=main header=main_header
         class="row tabs-tablet hh-phone">
 
         <div panel prop=filters header
             ajax=getPeople
             class="col-4 scrolly hh-phone pad pad-s-desktop">
 
-            <div section class="pad">
+            <div section class="pad inline-label_">
                 <input prop=name label>
                 <select data prop=area label></select>
                 <div block=multi filter
@@ -140,24 +138,24 @@ the [rasti=X] declaration does 3 things:
 
         <div panel header
             paged template=results columns
-            fx=stack
-            class="col-8 hh-phone" style="height: 85vh;">
+            fx=stamp
+            class="col-8 hh-phone" style="height: 80vh;">
 
             <div class="card row" section>
-                <img src="img/${ data.id }.jpg"
-                    onerror=app.methods.imgFallback(this) />
+                <img src="img/${ el.id }.jpg"
+                    on-error=imgFallback />
                 <div class="data">
-                    <div class="name">${ data.name }</div>
-                    <div class="row">
+                    <div class="name">${ el.name }</div>
+                    <div class="rigid row">
                         <div class="labels col-4">
                             Area:<br/>
                             Position:<br/>
                             Skills:<br/>
                         </div>
                         <div class="values col-8">
-                            ${ data.area }<br/>
-                            ${ data.position }<br/>
-                            ${ data.skills }<br/>
+                            ${ el.area }<br/>
+                            ${ el.position }<br/>
+                            ${ el.skills }<br/>
                         </div>
                     </div>
                 </div>
@@ -167,17 +165,13 @@ the [rasti=X] declaration does 3 things:
 
     </div>
 
-
     <div template prop=toast_msg bg=light fx=toast>
-        <p icon=${props.toast_icon}>${ props.toast_msg }!</p>
+        <div icon=${props.toast_icon}></div>
+        <div class="scrolly fcentery"
+            style="height: 50px; margin-left: 10px; flex-flow: wrap;">
+            ${ props.toast_msg }!
+        </div>
     </div>
-
-
-    <script src=/dist/rasti.min.js></script>
-    
-    <script src=extra/backend.js></script>
-    <script src=extra/config.js></script>
-    <script src=app.js></script>
 
 </body>
 </html>

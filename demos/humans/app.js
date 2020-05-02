@@ -14,105 +14,113 @@ const areaSkills = {
 }
 
 
-app.extend({
+const config = {
 
-pages : {
+    pages : {
 
-    login : {
-        in : params => {
-            
+        login : {
+            url : 'login',
+            in({loggedout}) {
+                if (loggedout) {
+                    humans.props.toast_msg = ''
+                    humans.props.toast_msg = "Thanks for trying out rasti.js!"
+                }
+            },
         },
-    },
 
-    main : {
-        url : 'main',
-        init : _ => {
-            $('[template=results]').on('click', '.card', e => {
-                e.currentTarget.classList.toggle('modal')
-            })
+        main : {
+            url : 'main',
+            init() {
+                $('[template=results]').on('click', '.card', e => {
+                    e.currentTarget.classList.toggle('modal')
+                })
+            },
+            access() { return !!humans.props.user },
+        },
+
+        about : {
+            url : 'about',
+            out(params) {
+                const lang = humans.langs[humans.active.lang]
+                const things = lang.things.split(', ')
+                const icons = 'accept warning error robot squid rainbow'.split(' ')
+                humans.props.toast_icon = icons[rasti.utils.random() % icons.length]
+                humans.props.toast_msg = lang.dont_forget + things[rasti.utils.random() % things.length]
+            },
+            access() { return !!humans.props.user },
         }
+
     },
 
-    about : {
-        url : 'about',
-        out : params => {
-            const lang = app.langs[app.active.lang]
-            const things = lang.things.split(', ')
-            const icons = 'accept warning error robot squid rainbow'.split(' ')
-            app.props.toast_icon = icons[rasti.utils.random() % icons.length]
-            app.props.toast_msg = lang.dont_forget + things[rasti.utils.random() % things.length]
+
+    data : {
+
+        area : ['Todas', ...Object.keys(areaSkills)],
+
+        skills : (render, deps) => {
+            if (deps) {
+                const skillType = areaSkills[ deps.area ]
+                render( skills[ skillType ] )
+            }
         },
+
+        features : `navigation | ajax (simulated) | props | templates (triggered and prop-bound) |
+            paging | actions (toggle) | themes | i18n | data-driven elements (blocks, lists and tables) |
+            element dependency | field validation | tabs, modals and menus | responsive layout | fx`,
+
+        stats : `File | LOC | KBs
+                index.html | ~200 | 5.5
+                app.js | ~100 | 3.0
+                app.css | ~80 | 1.2
+                config.js | ~120 | 3.5
+                Total | ~500 | 13.2`
+
+    },
+
+
+    methods : {
+
+        login(reqdata, cb) {   
+            $('.error').hide()
+            // ajax simulation
+            setTimeout(_ => {
+                this.backend.checkUser(reqdata.user) && reqdata.pass == '12341234'
+                    ? this.navTo('main')
+                    : this.props.toast_msg = this.langs[this.active.lang].error_login
+                cb()
+            }, 1000)
+        },
+
+        logout() {
+            this.props.user = ''
+            this.history.clear()
+            this.navTo('login', {loggedout: true})
+        },
+
+        getPeople(reqdata, render) {
+            this.props.filters.reqdata = JSON.stringify(reqdata, null, 2)
+            // ajax simulation
+            setTimeout(_ => {
+                const people = this.backend.getPeople(reqdata)
+                $('[tab-label="1"]').click()
+                render(people)
+            }, 1000)
+        },
+
+        imgFallback(e) {
+            e.target.src = 'img/user.png'
+        },
+
     }
-
-},
-
-
-data : {
-
-    area : ['Todas', ...Object.keys(areaSkills)],
-
-    skills : (render, deps) => {
-        if (deps) {
-            const skillType = areaSkills[ deps.area ]
-            render( skills[ skillType ] )
-        }
-    },
-
-    features : `navigation, ajax (simulated), props, templates (triggered and prop-bound),
-        paging, actions (toggle), themes, i18n, blocks and other data-driven elements (lists and tables),
-        element dependency, field validation, tabs modals and menus, responsive layout, fx`,
-
-    stats : `File,LOC,KBs
-            index.html,~200,5.5
-            app.js,~100,3.0
-            app.css,~80,1.2
-            config.js,~120,3.5
-            Total,~500,13.2`
-
-},
-
-
-methods : {
-
-    login : (reqdata, cb) => {   
-        $('.error').hide()
-        // ajax simulation
-        setTimeout(_ => {
-            app.backend.checkUser(reqdata.user) && reqdata.pass == '12341234'
-                ? app.navTo('main')
-                : $('.error').show()
-            cb()
-        }, 1000)
-    },
-
-    logout : _ => {
-        app.props.user = ''
-        app.history.clear()
-        app.navTo('login')
-    },
-
-    getPeople : (reqdata, render) => {
-        app.props.filters.reqdata = JSON.stringify(reqdata, null, 2)
-        // ajax simulation
-        setTimeout(_ => {
-            const people = app.backend.getPeople(reqdata)
-            $('[tab-label="1"]').click()
-            render(people)
-        }, 1000)
-    },
-
-    imgFallback : img => {
-        img.src = 'img/user.png'
-    },
 
 }
 
-})
-
-
-app.init({
+humans
+.config(config)
+.init({
     root : 'login',
     history : true,
+    //persist : false,
     //theme : 'blue',
     //lang : 'es',
 })

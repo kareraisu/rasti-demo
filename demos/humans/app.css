@@ -1,10 +1,15 @@
+[page=login] [icon]::before,
+[menu=user] [icon]::before {
+    filter: grayscale(1);
+}
+
 /* card styles */
 
 .card {
     height: 100px;
     padding: 0;
-    margin-bottom: 10px;
     cursor: pointer;
+    font-size: 0.9em;
 }
 .card img {
     height: 100%;
@@ -15,7 +20,7 @@
 }
 .card .name {
     margin-bottom: 5px;
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 .card .labels {
     max-width: 50px;

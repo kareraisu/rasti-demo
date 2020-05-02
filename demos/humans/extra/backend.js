@@ -1,9 +1,9 @@
-app.backend = {
+humans.backend = {
 
     getPeople : criteria => {
         const is = rasti.utils.is
         let matches, query
-        return app.backend.people.filter( person => {
+        return humans.backend.people.filter( person => {
             matches = true
             Object.keys(criteria).forEach( prop => {
                 if (!person[prop]) return
@@ -27,7 +27,7 @@ app.backend = {
     },
 
     checkUser : user => {
-        return app.backend.people.map(p => p.id).includes(user)
+        return humans.backend.people.map(p => p.id).includes(user)
     },
 
     people : [{
