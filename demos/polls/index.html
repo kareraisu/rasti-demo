@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Polls demo</title>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width, initial-scale=1 maximum-scale=1">
+    <script id=ninja-src src="../ninja-src.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300&display=swap');
+
+        body {
+            font-family: 'Dosis' !important;
+        }
+        .polls {
+            height: calc(100vh - 100px);
+        }
+        .polls .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-auto-rows: max-content;
+        }
+        .polls [panel] {
+            margin: 4px 0;
+            font-size: 0.9rem;
+        }
+        .polls p {
+            padding-left: 10px;
+            margin-left: 10px;
+            border-left: 4px solid;
+            font-weight: 100;
+        }
+        .polls .round {
+            min-height: 30px;
+            min-width: 30px;
+        }
+        [label]::before {
+            font-weight: 600;
+        }
+        .stats .round {
+            min-height: 60px;
+            min-width: 60px;
+            font-size: 1.4rem;
+        }
+        .stats .numbers {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-auto-rows: max-content;
+            align-items: center;
+            justify-items: center;
+            font-size: 0.7rem;
+        }
+        .stats .n {
+            font-size: 1rem;
+        }
+        .round {
+            color: #222;
+        }
+    </style>
+</head>
+
+<body hidden rasti=app src=app.js>
+
+<nav hidden class="show-phone">
+    <div icon="bars" toggle="sidemenu" style="max-width: 50px;"></div>
+    <div>Polls demo</div>
+    <input type="checkbox" class="right toggle"
+        prop=light
+        on-change=toggleTheme>
+</nav>
+
+<main page=main class="pad fcenterx">
+    <div class="right fcentery hide-phone">
+        <div icon=crescent-moon class="small"></div>
+        <input type="checkbox" class="toggle"
+        prop=light
+        on-change=toggleTheme>
+        <div icon=sun class="small"></div>
+    </div>
+    
+<div class="wrap" style="max-width: 800px;">
+    <h1 class="m0 hide-phone">Polls demo</h1>
+
+    <div class="row">
+        <div sidemenu panel class="col-4">
+
+            <select prop=año data=años label></select>
+
+            <input prop=materia data=materias bind=año label/>
+            
+            <input prop=catedra data=catedras bind="año materia" label
+                on-change=selectCatedra />
+
+            <div class="left bottom pad-s fullw textc show-phone">
+                Powered by <a href="https://github.com/kareraisu/rasti.js">rasti</a>
+            </div>
+        </div>
+
+        <div class="polls col-8">
+            <div template=stats fx=stamp foldable=stats section class="stats folded rigid row" >
+                <div class="fcenter col-5 col">
+                    <div class="fcenter round"
+                        style="background-color: ${el.color};">${el.prom}</div>
+                    <div class="n">n : ${el.n}</div>
+                </div>
+                <div class="numbers col-7">
+                    <div>5 :</div> <meter min=0 max=${el.n} value=${el.c5.q}></meter> <div>${el.c5.p} %</div>
+                    <div>4 :</div> <meter min=0 max=${el.n} value=${el.c4.q}></meter> <div>${el.c4.p} %</div>
+                    <div>3 :</div> <meter min=0 max=${el.n} value=${el.c3.q}></meter> <div>${el.c3.p} %</div>
+                    <div>2 :</div> <meter min=0 max=${el.n} value=${el.c2.q}></meter> <div>${el.c2.p} %</div>
+                    <div>1 :</div> <meter min=0 max=${el.n} value=${el.c1.q}></meter> <div>${el.c1.p} %</div>
+                </div>
+            </div>
+            <div template=polls fx=stamp class="scrolly grid">
+                <div panel class="fcentery">
+                    <div class="fcenter round"
+                        style="background-color: ${el.color};">${el.score_gral}</div>
+                    <p style="border-color: ${el.color};">${el.comentario}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+</div>
+</main>
+
+<div class="bottom pad hide-phone">Powered by <a href="https://github.com/kareraisu/rasti.js">rasti</a></div>
+
+</body>
