@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Signiorini</title>
+    <title>Food place demo</title>
     <meta charset=utf-8>
     <meta name=viewport content="width=device-width, initial-scale=1 maximum-scale=1">
-
+    <script id=ninja-src src="../ninja-src.js"></script>
+    
     <link rel=stylesheet href=app.css>
-
 </head>
 
-<body rasti=app hidden>
+<body hidden rasti=food src="data.js, admin.js, app.js">
 
     <div page=landing class="pad-l-desktop pad-s-phone">
         <div img=logo-rect-alpha class="logo"></div>
@@ -51,8 +51,8 @@
 
 
         <div menu=logos class="scale_">
-            <div img=logo-pizzeria onclick=app.methods.changeTo('pizzeria') ></div>
-            <div img=logo-cucina onclick=app.methods.changeTo('cucina') ></div>
+            <div img=logo-pizzeria onclick=food.methods.changeTo('pizzeria') ></div>
+            <div img=logo-cucina onclick=food.methods.changeTo('cucina') ></div>
         </div>
 
 
@@ -76,23 +76,23 @@
         <div id=comidas panel header="nuestras comidas" class="row" bg=mid style="padding-left: 0; padding-right: 0;">
             <div class="col-3">
 
-                <div crud=cats template=categorias
+                <div data template=categorias
                     on-click=filter
-                    class="list cc_" bg=detail
+                    class="list" bg=detail
                     style="text-transform: uppercase;">
-                    <div value=${data}>${data}</div>
+                    <div value=${el}>${el}</div>
                 </div>
 
             </div>
 
-            <div crud template=productos
+            <div data template=productos
                 class="col-9 fullh scrolly inline_" >
-                <div class="card" data-cat=${data.categoria}>
-                    <img src="img/prods/${data.id}.jpeg"
-                        onerror=app.methods.imgFallback(this) />
+                <div class="card" data-cat=${el.categoria}>
+                    <img src="img/prods/${el.id}.jpeg"
+                        on-error=imgFallback />
                     <div class="info">
-                        <span class=nombre>${data.nombre}</span><br/>
-                        <span class=precio>$${data.precio}</span><br/>
+                        <span class=nombre>${el.nombre}</span><br/>
+                        <span class=precio>$${el.precio}</span><br/>
                     </div>
                 </div>
             </div>
@@ -147,25 +147,6 @@
     <div page=lavadero>
         <div img="logo-lavadero" class="logo center below" label="EN CONSTRUCCION"></div>
     </div>
-
-
-    <script id=magic>
-        (function (body, ...sources){
-            var s, inject = (sources) => {
-                s = document.createElement('script')
-                s.src = sources.shift()
-                if (sources.length) s.onload = () => inject(sources)
-                body.append(s)
-            }
-            inject(sources)
-            document.querySelector('#magic').remove()
-        })(document.querySelector('body'),
-            location.hostname == 'localhost' ? '../dist/rasti+zepto.js' : 'https://rawgit.com/kareraisu/rasti.js/dev/dist/rasti%2Bzepto.min.js',
-            'data.js',
-            'admin.js',
-            'app.js'
-            )
-    </script>
 
 </body>
 </html>

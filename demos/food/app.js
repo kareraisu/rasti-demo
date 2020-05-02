@@ -1,6 +1,6 @@
-app.extend({
+const config = {
 
-state: {
+props : {
     editing : '',
 },
 
@@ -15,7 +15,8 @@ pages : {
             })
         },
         in : params => {
-            if (!app.data.map) rasti.utils.inject('https://maps.googleapis.com/maps/api/js?key=AIzaSyAFVnZqxJOkkZYCbWSH-KYwEhzGSflloQQ&callback=app.methods.initMap')
+            if (!app.data.map)
+                rasti.utils.inject('https://maps.googleapis.com/maps/api/js?key=AIzaSyAFVnZqxJOkkZYCbWSH-KYwEhzGSflloQQ&callback=app.methods.initMap')
             if (!params) return
             app.methods.changeTo(params.name)
         }
@@ -24,15 +25,15 @@ pages : {
 
 
 methods : {
-    initMap : _ => {
-        if (app.data.map) return
+    initMap() {
+        if (this.data.map) return
 
-        var map = app.data.map = new google.maps.Map($('#map')[0], {
+        var map = this.data.map = new google.maps.Map($('#map')[0], {
           zoom: 15,
-          center: app.data.locales[0].pos
+          center: this.data.locales[0].pos
         })
 
-        app.data.locales.forEach(loc => {
+        this.data.locales.forEach(loc => {
             loc.marker = new google.maps.Marker({
               position: loc.pos,
               map: map
@@ -40,31 +41,29 @@ methods : {
         })
     },
 
-    filter : e => {
+    filter(e) {
         let $el = $(e.target)
         $el.siblings().removeClass('active')
         $el.addClass('active')
         var cat = $el.attr('value')
-        $('[template=productos]').children().hide()
-            .filter(function(i,el){
-                return this.getAttribute('data-cat') == cat
-            }).show()
+        const prods = this.data.productos.filter(el => el.categoria == cat)
+        this.render('productos', prods)
     },
 
-    changeTo : local => {
-        app.setTheme(local)
+    changeTo(local) {
+        this.setTheme(local)
         $('[name=logo]').css('background-image', `url(img/logo-${local}.png)`)
         $('.toggle').hide()
         $('.'+local).show()
         // TODO : especializar categorias y productos por local
-        app.data.locales.forEach(loc => {
-            loc.marker && loc.marker.setMap(loc.nombre == local ? app.data.map : null)
+        this.data.locales.forEach(loc => {
+            loc.marker && loc.marker.setMap(loc.nombre == local ? this.data.map : null)
         })
         $('[href="#inicio"]').click()
     },
 
-    imgFallback : img => {
-        img.src = 'img/comidas.png'
+    imgFallback(e) {
+        e.target.src = 'img/comidas.png'
     },
 },
 
@@ -138,9 +137,10 @@ themes : {
 },
 
 
-})
+}
 
-
-app.init({
+food
+.config(config)
+.init({
     theme: "cucina light",
 })

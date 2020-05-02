@@ -92,9 +92,9 @@ nav {
 
 .card, .card:before {
     position: relative;
-    height: 22vw;
+    height: 15vw;
     width: 15vw;
-    min-height: 200px;
+    min-height: 150px;
     min-width: 150px;
     margin-right: 1vw;
     margin-bottom: 1vw;
