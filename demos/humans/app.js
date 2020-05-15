@@ -13,6 +13,12 @@ const areaSkills = {
     Administración : 'manage',
 }
 
+const access = () => {
+    const isLogged = !!humans.props.user
+    if (!isLogged) humans.props.toast_msg = "Please log in first!"
+    return isLogged
+}
+
 
 const config = {
 
@@ -22,7 +28,6 @@ const config = {
             url : 'login',
             in({loggedout}) {
                 if (loggedout) {
-                    humans.props.toast_msg = ''
                     humans.props.toast_msg = "Thanks for trying out rasti.js!"
                 }
             },
@@ -30,16 +35,12 @@ const config = {
 
         main : {
             url : 'main',
-            init() {
-                $('[template=results]').on('click', '.card', e => {
-                    e.currentTarget.classList.toggle('modal')
-                })
-            },
-            access() { return !!humans.props.user },
+            access,
         },
 
         about : {
             url : 'about',
+            access,
             out(params) {
                 const lang = humans.langs[humans.active.lang]
                 const things = lang.things.split(', ')
@@ -47,7 +48,6 @@ const config = {
                 humans.props.toast_icon = icons[rasti.utils.random() % icons.length]
                 humans.props.toast_msg = lang.dont_forget + things[rasti.utils.random() % things.length]
             },
-            access() { return !!humans.props.user },
         }
 
     },
@@ -107,7 +107,13 @@ const config = {
             }, 1000)
         },
 
+        showDetail(e) {
+            this.props.person = e.currentTarget.innerHTML
+            $('[modal=detail]').show()
+        },
+
         imgFallback(e) {
+            $(e.target).off('error')
             e.target.src = 'img/user.png'
         },
 

@@ -6,11 +6,10 @@
     <meta name=viewport content="width=device-width, initial-scale=1 maximum-scale=1">
     <script id=ninja-src src="../ninja-src.js"></script>
 
-    <link rel=stylesheet href=app.css>
     <link rel=manifest href=manifest.json>
 </head>
 
-<body rasti=humans src="extra/backend.js, extra/config.js, app.js" hidden>
+<body rasti=humans src="extra/backend.js, extra/config.js, app.css, app.js" hidden>
 <!-- 
 the [rasti=X] declaration does 3 things:
     1. creates a rasti instance named 'X'
@@ -23,7 +22,7 @@ the [rasti=X] declaration does 3 things:
         <div template prop=user class="right"
             toggle="menu=user">
             <label class="hide-phone">${ props.user }</label>
-            <img src="img/${ props.user }.jpg" class="round" style="height: 50px; width: 50px; margin-left: 10px;" />
+            <img src="img/${ props.user }.jpg" class="round avatar" />
         </div>
     </nav>
 
@@ -53,7 +52,7 @@ the [rasti=X] declaration does 3 things:
 
 
     <div page=about header=about_header
-        class="row columns-3 fcenterx hide-nav hh-phone pad-s-phone">
+        class="row columns-3 flex centerx hide-nav hh-phone pad-s-phone">
         <div section>
             <h2>rasti.js demo app</h2>
             <p text=info></p>
@@ -74,7 +73,7 @@ the [rasti=X] declaration does 3 things:
         class="hide-nav">
 
         <div panel ajax=login
-            class="center textc" bg=transparent
+            class="abs center textc" bg=transparent
             style="max-width: 400px; max-height: 500px" >
             
             <img src=rasti-192x192.png style="margin: 25px 0;"/>
@@ -113,35 +112,38 @@ the [rasti=X] declaration does 3 things:
 
         <div panel prop=filters header
             ajax=getPeople
-            class="col-4 scrolly hh-phone pad pad-s-desktop">
+            class="col-4 flex centerx scrolly hh-tablet pad">
+            <div style="width: 300px;">
 
-            <div section class="pad inline-label_">
-                <input prop=name label>
-                <select data prop=area label></select>
-                <div block=multi filter
-                    data prop=skills label
-                    bind=area></div>
+                <div section class="pad inline-label_">
+                    <input prop=name label>
+                    <select data prop=area label></select>
+                    <div block=multi filter
+                        data prop=skills label
+                        bind=area></div>
+                </div>
+
+                <div foldable section=reqdata header class="folded">
+                    <textarea private transient prop=reqdata disabled
+                        style=height:100px></textarea>
+                </div>
+
+                <button class="fullw"
+                    icon=search
+                    submit=getPeople
+                    render=results
+                    text=search></button>
             </div>
-
-            <div foldable section=reqdata header class="folded">
-                <textarea private transient prop=reqdata disabled
-                    style=height:100px></textarea>
-            </div>
-
-            <button class="fullw"
-                icon=search
-                submit=getPeople
-                render=results
-                text=search></button>
         </div>
 
 
         <div panel header
             paged template=results columns
             fx=stamp
-            class="col-8 hh-phone" style="height: 80vh;">
+            class="col-8 hh-tablet" style="height: 80vh;">
 
-            <div class="card row" section>
+            <div section class="card row"
+                on-click=showDetail>
                 <img src="img/${ el.id }.jpg"
                     on-error=imgFallback />
                 <div class="data">
@@ -163,11 +165,17 @@ the [rasti=X] declaration does 3 things:
 
         </div>
 
+        <div template modal=detail
+            transient prop=person
+            bg=mid class="modal">
+            ${el}
+        </div>
+
     </div>
 
     <div template prop=toast_msg bg=light fx=toast>
         <div icon=${props.toast_icon}></div>
-        <div class="scrolly fcentery"
+        <div class="scrolly flex centery"
             style="height: 50px; margin-left: 10px; flex-flow: wrap;">
             ${ props.toast_msg }!
         </div>

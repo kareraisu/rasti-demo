@@ -3,6 +3,13 @@
     filter: grayscale(1);
 }
 
+.avatar {
+    height: 50px;
+    width: 50px;
+    padding: 2px;
+    margin-left: 10px;
+}
+
 /* card styles */
 
 .card {
@@ -13,6 +20,7 @@
 }
 .card img {
     height: 100%;
+    width: 100px;
 }
 .card .data {
     max-width: calc(100% - 100px);
@@ -30,23 +38,24 @@
     text-overflow: ellipsis;
 }
 
-.card.modal {
+.modal {
     justify-content: center;
     height: 500px;
     min-width: 300px !important; 
     padding: 20px;
 }
-.card.modal img {
+.modal img {
     position: static;
+    max-height: 320px;
+    border-radius: 4px;
 }
-.card.modal img,
-.card.modal .data {
+.modal img,
+.modal .data {
     flex-basis: 100%;
     max-width: 320px;
 }
-.card.modal img {
-    max-height: 320px;
-    border-radius: 4px;
+.modal .name {
+    font-size: 2em;
 }
 
 /* phone-specific styles */

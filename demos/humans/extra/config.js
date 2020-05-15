@@ -5,20 +5,20 @@ humans.config({
 	    blue : {
 	        font : 'normal 14px sans-serif',
 	        palette : {
-	            light  : '#B5C1E2',
-	            mid    : '#445288',
-	            dark   : '#263256',
-	            detail : '#C94C40',
+	            light   : '#B5C1E2',
+	            mid     : '#445288',
+	            dark    : '#263256',
+	            primary : '#C94C40',
 	        },
 	    },
 
 	    green : {
 	        font : 'normal 14px fantasy',
 	        palette : {
-	            light  : '#81ABAA',
-	            mid    : '#436F6E',
-	            dark   : '#1D3638',
-	            detail : '#DFD665',
+	            light   : '#81ABAA',
+	            mid     : '#436F6E',
+	            dark    : '#1D3638',
+	            primary : '#DFD665',
 	        },
 	    },
 
