@@ -1,11 +1,12 @@
+const is = rasti.utils.is
+
 const config = {
 
     props : {
-        category: 'app',
+        category : 'app',
         size : 1,
-        bg_color: 0,
-        mode: false,
-        shade: false,
+        mode : false,
+        shade : false,
     },
 
     data : {
@@ -21,7 +22,7 @@ const config = {
             palevioletred salmon tomato coral lightsalmon
             burlywood navajowhite peachpuff
             lightgray darkgray gray lightslategray slategray darkslategray
-        `.trim().split(/[\n\s]+/),
+        `,
     },
 
     methods : {
@@ -47,32 +48,30 @@ const config = {
             return this.methods
         },
 
-        incSize(e) {
-            if (this.props.size < 3) this.props.size++
-        },
-
-        decSize(e) {
-            if (this.props.size > 0) this.props.size--
-        },
-
         selectCategory(e) {
-            let newCat = e && (is.string(e) ? e : $(e.target).attr('value'))
-            if (newCat) this.props.category = newCat
-            const icons = this.props.category == 'all'
-                ? Object.values(this.data.icons).flat()
-                : this.data.icons[this.props.category]
-            this.render('icons', icons)
-            this.sidemenu.hide()
+            const cat = e && (is.string(e) ? e : $(e.target).attr('value'))
+            const current = this.props.category
+            const isValid = this.data.categories.includes(cat)
+            const isDiff = cat !== current
+            if ( cat && !isValid ) rasti.warn(`Unknown category "${cat}"`)
+            if ( (isValid && isDiff) || (!cat && current) ) {
+                if (cat) this.props.category = cat
+                const icons = this.props.category == 'all'
+                    ? Object.values(this.data.icons).flat()
+                    : this.data.icons[this.props.category]
+                this.render('icons', icons)
+                this.sidemenu.hide()
+            }
             return this.methods
         },
 
         changeColor(e) {
-            e && e.preventDefault()
-            this.props.colorName = e
-                ? e.target.value || $(e.target).attr('value')
-                : this.data.palette[this.props.bg_color]
-            document.body.style.setProperty("--bg_color", this.props.colorName)
-            this.render('stats')
+            if (!this.props.colorName) this.props.colorName = this.data.palette[0]
+            if (e) {
+                e.preventDefault()
+                this.props.colorName = e.target.value || $(e.target).attr('value')
+            }
+            document.body.style.setProperty("--primary", this.props.colorName)
             return this.methods
         },
 
@@ -81,12 +80,15 @@ const config = {
                 this.props.shade = !this.props.shade
                 e.target.classList.toggle('active')
             }
-            document.body.style.setProperty("--icon_color", this.props.shade ? '#0004' : '#fff4')
+            document.body.style.setProperty("--icon_color", this.props.shade ? '#111' : '#eee')
             return this.methods
         },
 
         toggleMode(e) {
-            if (e) this.props.mode = !this.props.mode
+            if (e) {
+                this.props.mode = !this.props.mode
+                e.target.classList.toggle('active')
+            }
             document.body.style.setProperty("--icon_font", this.props.mode ? 'Segoe UI Symbol' : 'inherit')
             return this.methods
         },
@@ -96,10 +98,11 @@ const config = {
 }
 
 icons_demo
-.config(config)
-.init({persist: true})
-.methods
-    .changeColor()
-    .toggleMode()
-    .toggleShade()
-    .selectCategory()
+    .config(config)
+    .init({persist: true})
+    .methods
+        .changeColor()
+        .changeSize()
+        .toggleMode()
+        .toggleShade()
+        .selectCategory()

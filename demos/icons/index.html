@@ -5,134 +5,88 @@
     <meta charset=utf-8>
     <meta name=viewport content="width=device-width, initial-scale=1 maximum-scale=1">
     <script id=ninja-src src="../ninja-src.js"></script>
-
-    <style>
-        :root {
-            --icon_font: inherit;
-            --icon_color: #fff4;
-            --bg_color: #222;
-        }
-        body {
-            color: #222 !important;
-        }
-        [icon]:before {
-            font-family: var(--icon_font);
-        }
-        .grid [icon]:before {
-            background-color: var(--icon_color);
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-auto-rows: max-content;
-            justify-items: center;
-        }
-        .grid > div {
-            margin: 1vw;
-            font-size: 1rem;
-            text-align: center;
-        }
-        .orb {
-            height: 25px;
-            width: 25px;
-            border-radius: 50%;
-            margin: 5px;
-            cursor: pointer;
-        }
-        .range-wrap {
-            display: inline-block;
-            height: 160px;
-            width: 20px;
-        }
-        .vert {
-            width: 160px;
-            transform: rotate(-90deg);
-            transform-origin: 80px 80px;
-        }
-        [icon=contrast]::before {
-            font-size: 1.7rem !important;
-            line-height: 1.2 !important;
-        }
-        [icon=contrast].active {
-            transform: rotate(180deg);
-        }
-    </style>
 </head>
 
-<body hidden rasti=icons_demo src=app.js>
+<body hidden rasti=icons_demo src="app.css, app.js">
 
-<div page=main class="fullh row">
+<div page=main class="flex centerx" >
+<div class="row" style="max-width: 800px;">
 
-    <nav bg=light class="hidden show-phone">
+    <nav class="show-phone">
         <div icon="bars" toggle="sidemenu" style="max-width: 50px;"></div>
         <div>rasti icons</div>
     </nav>
 
-    <div sidemenu panel class="col-4">
+    <h2 class="row p0 hide-phone" style="margin-bottom: 10px;">Rasti icons demo</h2>
+
+    <div sidemenu bg=darkest
+        class="col-4 pad-phone">
 
         <input prop=search
             on-keydown=search
             placeholder="write any icon names" />
+        
+        <div foldable=categories class="h-left h-upper">
+            <div key-nav data template=categories
+                prop=category
+                class="scrolly list"
+                style="max-height: 400px;">
 
-        <div foldable=palette bg=light style="max-height: 300px;">
-            <div class="rigid row" >
-
-                <div template=stats class="col-8 rigid row" style="padding: 10px 10px 0 10px">
-                    <div class="col-4">${ props.sizeName }</div>
-                    <div class="col-8">${ props.colorName }</div>
+                <div on-click=selectCategory value=${el}
+                    icon="${ data.icons[el] ? data.icons[el][0] : 'star' }"
+                    class="${el == props.category ? 'active' : ''}">
+                    ${el} ( ${el == 'all'
+                        ? Object.values(data.icons).flat().length
+                        : data.icons[el].length} )
                 </div>
-
-                <div class="col-4 fcentery small_">
-                    <div icon=palette on-click=toggleMode></div>
-                    <div icon=contrast on-click=toggleShade></div>
-                </div>
-                
-            </div>
-
-            <div class="nowrap rigid row" hide=sidemenu style="padding: 10px;">
-                
-                <div class="col-2 small_">
-                    <div icon=add on-click=incSize render=stats></div>
-                    <div class="range-wrap">
-                        <input prop=size class="vert"
-                            type=range min=0 max=3 step=1 value=2
-                            on-change=changeSize render=stats>
-                    </div>
-                    <div icon=remove on-click=decSize render=stats></div>
-                </div>
-                
-                <div template data=palette class="col-10 row">
-                    <div on-click=changeColor value=${el} class="orb"
-                        style="background-color: ${el};" ></div>
-                </div>
-
             </div>
         </div>
-        
-        <div foldable=categories template data=categories
-            fx=stack bg=light
-            class="scrolly list"
-            style="max-height: 300px; margin-top: 10px;">
 
-            <div on-click=selectCategory value=${el}>${el} ( ${el == 'all'
-                ? Object.values(data.icons).flat().length
-                : data.icons[el].length} )</div>
+        <div foldable=palette class="h-left h-upper" style="margin-bottom: 15px;">
+            <div key-nav data template=palette
+                prop=colorName
+                separator=" "
+                hide=sidemenu
+                class="scrolly row"
+                style="max-height: 400px;">
 
+                <div on-click=changeColor value=${el}
+                    class="orb ${el == props.colorName ? 'active' : ''}"
+                    style="background-color: ${el};" ></div>
+            </div>
         </div>
     </div>
 
-    <div class="col-8 p0-phone hh-phone" section header="rasti icons"
-        style="background-color: var(--bg_color); height: 95vh;">
+    <div class="col-8 p0-phone">
+
+        <div class="controls bottom-phone flex_ centery_">
+            <div template prop=colorName class="col-6">
+                <div class="lil-orb" style="background-color: ${props.colorName};"></div>
+                ${ props.colorName }
+            </div>
+
+            <div template prop=sizeName icon=select>${ props.sizeName }</div>
+
+            <input prop=size class="m0"
+                type=range min=0 max=3 step=1 value=2
+                on-change=changeSize>
+
+            <div class="small_ round_">
+                <div key-nav icon=palette on-click=toggleMode class="mode"></div>
+                <div key-nav icon=contrast on-click=toggleShade class="shade"></div>
+            </div>
+        </div>
 
         <div template=icons fx=stamp
-            class="scrolly grid round_">
+            class="scrolly icons round_"
+            style="height: calc(100vh - 100px);">
 
             <div icon=${el} class="col">${el}</div>
-
         </div>
 
     </div>
 
+</div>
 </div>
 
 </body>
