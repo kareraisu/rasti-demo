@@ -69,8 +69,8 @@
         on-change=toggleTheme>
 </nav>
 
-<main page=main class="pad fcenterx">
-    <div class="right fcentery hide-phone">
+<main page=main class="pad flex centerx">
+    <div class="right flex centery hide-phone">
         <div icon=crescent-moon class="small"></div>
         <input type="checkbox" class="toggle"
         prop=light
@@ -98,8 +98,8 @@
 
         <div class="polls col-8">
             <div template=stats fx=stamp foldable=stats section class="stats folded rigid row" >
-                <div class="fcenter col-5 col">
-                    <div class="fcenter round"
+                <div class="flex center col-5 col">
+                    <div class="flex center round"
                         style="background-color: ${el.color};">${el.prom}</div>
                     <div class="n">n : ${el.n}</div>
                 </div>
@@ -112,8 +112,8 @@
                 </div>
             </div>
             <div template=polls fx=stamp class="scrolly grid">
-                <div panel class="fcentery">
-                    <div class="fcenter round"
+                <div panel class="flex centery">
+                    <div class="flex center round"
                         style="background-color: ${el.color};">${el.score_gral}</div>
                     <p style="border-color: ${el.color};">${el.comentario}</p>
                 </div>
@@ -125,6 +125,6 @@
 </div>
 </main>
 
-<div class="bottom pad hide-phone">Powered by <a href="https://github.com/kareraisu/rasti.js">rasti</a></div>
+<div class="bottom pad hide-phone">Powered by <a href="https://github.com/kareraisu/rasti.js">rasti.js</a></div>
 
 </body>
