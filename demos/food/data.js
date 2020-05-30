@@ -1,6 +1,6 @@
-app.data.categorias = 'promociones, pizzas, empanadas, comidas, tartas, panificacion, postres'.split(', ')
+food.data.categorias = 'promociones, pizzas, empanadas, comidas, tartas, panificacion, postres'.split(', ')
 
-app.data.locales = [{
+food.data.locales = [{
     nombre : 'cucina',
     pos : {
         lat: -34.5798884,
@@ -14,7 +14,7 @@ app.data.locales = [{
     },
 }]
 
-app.data.productos = [{
+food.data.productos = [{
     id : 'tarta',
     nombre : 'Tarta',
     categoria : 'tartas',

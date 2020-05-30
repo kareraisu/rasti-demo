@@ -102,8 +102,8 @@ const config = {
             // ajax simulation
             setTimeout(_ => {
                 const people = this.backend.getPeople(reqdata)
-                $('[tab-label="1"]').click()
                 render(people)
+                $('[tab-label="1"]').click()
             }, 1000)
         },
 

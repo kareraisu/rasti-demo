@@ -15,10 +15,10 @@ pages : {
             })
         },
         in : params => {
-            if (!app.data.map)
-                rasti.utils.inject('https://maps.googleapis.com/maps/api/js?key=AIzaSyAFVnZqxJOkkZYCbWSH-KYwEhzGSflloQQ&callback=app.methods.initMap')
+            if (!food.data.map)
+                rasti.utils.inject('https://maps.googleapis.com/maps/api/js?key=AIzaSyAFVnZqxJOkkZYCbWSH-KYwEhzGSflloQQ&callback=food.methods.initMap')
             if (!params) return
-            app.methods.changeTo(params.name)
+            food.methods.changeTo(params.name)
         }
     },
 },
@@ -52,7 +52,7 @@ methods : {
 
     changeTo(local) {
         this.setTheme(local)
-        $('[name=logo]').css('background-image', `url(img/logo-${local}.png)`)
+        $('[name=logo]')[0].style['background-image'] = `url(img/logo-${local}.png)`
         $('.toggle').hide()
         $('.'+local).show()
         // TODO : especializar categorias y productos por local
@@ -81,7 +81,7 @@ crud : {
         }),
 
         delete : cat => {
-            return app.data.categorias.remove(cat)
+            return food.data.categorias.remove(cat)
         },
     }
 },

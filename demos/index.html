@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rasti.js demos</title>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width, initial-scale=1 maximum-scale=1">
+    <script id=ninja-src src="./ninja-src.js"></script>
+
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        .grid > a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 20px;
+            border: 1px solid var(--lighten);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body hidden rasti=demos persist=false init>
+
+    <main page=main class="pad flex center">    
+    <div class="wrap" style="max-width: 800px;">
+        
+        <h1 class="textc">Rasti.js demos</h1>
+        
+        <div class="grid">
+            <a href="./humans" icon=users class="huge">Humans</a>
+            <a href="./icons" icon=palette class="huge">Icons</a>
+            <a href="./polls" icon=clipboard class="huge">Polls</a>
+        </div>
+        
+    </div>
+    </main>
+
+    <div class="bottom pad fullw flex centerx">
+        <a href="https://github.com/kareraisu/rasti.js">Check out the project on Github!</a>
+    </div>
+
+</body>

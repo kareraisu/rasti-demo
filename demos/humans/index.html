@@ -10,12 +10,6 @@
 </head>
 
 <body rasti=humans src="extra/backend.js, extra/config.js, app.css, app.js" hidden>
-<!-- 
-the [rasti=X] declaration does 3 things:
-    1. creates a rasti instance named 'X'
-    2. binds it to the container (in this case the body, but could be any div as well)
-    3. creates an 'X' global var to access the instance (window.X = instance)
--->
 
     <nav bg=mid>
         <div nav=main text=main></div>
@@ -108,59 +102,62 @@ the [rasti=X] declaration does 3 things:
 
 
     <div page=main header=main_header
-        class="row tabs-tablet hh-phone">
+        class="row hh-phone">
+        
+        <div class="tabs-tablet">
+            
+            <div panel prop=filters header
+                ajax=getPeople
+                class="col-4 flex centerx scrolly hh-tablet pad">
+                <div style="width: 300px;">
 
-        <div panel prop=filters header
-            ajax=getPeople
-            class="col-4 flex centerx scrolly hh-tablet pad">
-            <div style="width: 300px;">
+                    <div section class="pad inline-label_">
+                        <input prop=name label>
+                        <select data prop=area label></select>
+                        <div block=multi filter
+                            data prop=skills label
+                            bind=area></div>
+                    </div>
 
-                <div section class="pad inline-label_">
-                    <input prop=name label>
-                    <select data prop=area label></select>
-                    <div block=multi filter
-                        data prop=skills label
-                        bind=area></div>
+                    <div foldable section=reqdata header class="folded">
+                        <textarea private transient prop=reqdata disabled
+                            style=height:100px></textarea>
+                    </div>
+
+                    <button class="fullw"
+                        icon=search
+                        submit=getPeople
+                        render=results
+                        text=search></button>
                 </div>
-
-                <div foldable section=reqdata header class="folded">
-                    <textarea private transient prop=reqdata disabled
-                        style=height:100px></textarea>
-                </div>
-
-                <button class="fullw"
-                    icon=search
-                    submit=getPeople
-                    render=results
-                    text=search></button>
             </div>
-        </div>
 
+            <div paged template=results columns
+                panel header
+                fx=stamp
+                class="col-8 hh-tablet" style="height: 80vh;">
 
-        <div panel header
-            paged template=results columns
-            fx=stamp
-            class="col-8 hh-tablet" style="height: 80vh;">
-
-            <div section class="card row"
-                on-click=showDetail>
-                <img src="img/${ el.id }.jpg"
-                    on-error=imgFallback />
-                <div class="data">
-                    <div class="name">${ el.name }</div>
-                    <div class="rigid row">
-                        <div class="labels col-4">
-                            Area:<br/>
-                            Position:<br/>
-                            Skills:<br/>
-                        </div>
-                        <div class="values col-8">
-                            ${ el.area }<br/>
-                            ${ el.position }<br/>
-                            ${ el.skills }<br/>
+                <div section class="card row"
+                    on-click=showDetail>
+                    <img src="img/${ el.id }.jpg"
+                        on-error=imgFallback />
+                    <div class="data">
+                        <div class="name">${ el.name }</div>
+                        <div class="rigid row">
+                            <div class="labels col-4">
+                                Area:<br/>
+                                Position:<br/>
+                                Skills:<br/>
+                            </div>
+                            <div class="values col-8">
+                                ${ el.area }<br/>
+                                ${ el.position }<br/>
+                                ${ el.skills }<br/>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </div>
