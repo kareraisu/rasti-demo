@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/kareraisu/rasti-demo#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.17.3"
   },
   "devDependencies": {
   }
